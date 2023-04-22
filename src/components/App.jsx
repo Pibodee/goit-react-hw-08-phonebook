@@ -6,10 +6,18 @@ import { selectIsLoading } from 'redux/contacts/selectors';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/contacts/contatsOperations';
 import { Loader } from './Loader/Loader';
+import { Route, Routes } from 'react-router-dom';
 
 export const App = () => {
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
+
+
+  <Routes>
+    <Route path="/" element={<MainNav/>}>
+      <Route index element={<Homepage />} />
+    </Route>
+  </Routes>;
 
   useEffect(() => {
     dispatch(fetchContacts());
