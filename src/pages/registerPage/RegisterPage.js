@@ -1,5 +1,6 @@
 import { Formik, ErrorMessage, Form, Field } from 'formik';
-import register from '../../redux/auth/authOperations';
+import { register } from 'redux/auth/authOperations';
+import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 
 const schema = yup.object().shape({
@@ -46,3 +47,6 @@ const RegistrationPage = () => {
     </Formik>
   );
 };
+
+
+export default RegistrationPage

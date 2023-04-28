@@ -1,25 +1,65 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
-export const register = createAsyncThunk('auth/register', async credentials => {
+const setToken = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
+const unsetToken = () => {
+  axios.defaults.headers.common.Authorization = '';
+};
+
+export const register = createAsyncThunk(
+  'auth/signup',
+  async (userdata, { rejectWithValue }) => {
     try {
-        const { data } = await axios.post('/users/signup', credentials);
-        return data
+      const response = await axios.post('/users/signup', userdata);
+      setToken(response.data.token);
+      return response.data;
+    } catch (e) {
+      rejectWithValue(e.message);
     }
-    catch (error) {
+  }
+);
 
-    }
-})
-
-
-export const logIn = createAsyncThunk('auth/login', async credentials => {
+export const logIn = createAsyncThunk(
+  'auth/login',
+  async (userdata, { rejectWithValue }) => {
     try {
-        const { data } = await axios.post('/users/login', credentials);
-        return data;
+      const response = await axios.post('/users/login', userdata);
+      setToken(response.data.token);
+      return response.data;
+    } catch (e) {
+      rejectWithValue(e.message);
     }
-    catch (error) {
-        
-    }
-})
+  }
+);
 
+export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
+    try {
+        await axios.post('/users/logout');
+        unsetToken()
+    } catch (e) {
+        rejectWithValue(e.message)
+    }
+});
+
+export const refreshUser = createAsyncThunk(
+  'auth/refresh',
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const state = getState();
+            if (!state.auth.token) {
+                return rejectWithValue()
+            }
+
+            setToken(state.auth.token);
+            const response = await axios.get('/users/current');
+            return response.data;
+        } catch (e) {
+            rejectWithValue(e.message)
+      }
+  }
+);
