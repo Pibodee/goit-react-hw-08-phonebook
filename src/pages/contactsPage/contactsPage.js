@@ -1,34 +1,25 @@
-import { ContactList } from "components/ContactList/ContactList";
-import { Filter } from "components/Filter/Filter";
-import { ContactForm } from "components/Form/Form";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux"
-import { fetchContacts } from "redux/contacts/contatsOperations";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchContacts } from 'redux/contacts/contatsOperations';
+import {ContactForm } from 'components/Form/Form';
+import { Filter } from 'components/Filter/Filter';
+import { ContactList } from 'components/ContactList/ContactList';
+import { Container, Hero, ListContainer } from 'pages/PagesStyles.styled.';
 
-const ContactsPage = () => {
-    const dispatch = useDispatch();
+export function Contactspage() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(fetchContacts())
-    }, [dispatch])
-    return (
-        <>
-            <div>
-                <h1>Contacts</h1>
-            </div>
-            <div>
-                <section>
-                    <h2>Phonebook</h2>
-                    <ContactForm/>
-                </section>
-                <section>
-                    <h2>Find contact</h2>
-                    <Filter />
-                    <ContactList/>
-                </section>
-            </div>
-        </>
-    )
+  return (
+    <Container>
+      <Hero>Contacts</Hero>
+      <ContactForm />
+      <Filter />
+      <ListContainer>
+        <ContactList />
+      </ListContainer>
+    </Container>
+  );
 }
-
-export default ContactsPage

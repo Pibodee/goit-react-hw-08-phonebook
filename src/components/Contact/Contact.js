@@ -1,24 +1,31 @@
 import PropTypes from 'prop-types';
-import { Delete, Item, Text } from './Contact.styled';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/contacts/contatsOperations';
+import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
+import Avatar from '@mui/material/Avatar';
+import { Text, Delete, Item } from './Contact.styled';
+import { yellow } from '@mui/material/colors';
 
-export const Contact = ({ name, number, delId }) => {
+export const Contact = ({ contact }) => {
   const dispatch = useDispatch();
-  const handleDel = contactId => {
-    dispatch(deleteContact(contactId));
-  };
 
+  const handleDelete = () => dispatch(deleteContact(contact.id));
   return (
     <Item>
-      <Text>{name}</Text>
-      <Text>{number}</Text>
-      <Delete onClick={() => handleDel(delId)}>Delete</Delete>
+      <Avatar sx={{ bgcolor: yellow[700] }}>
+        <AccountBoxRoundedIcon />
+      </Avatar>
+      <Text>{contact.name}</Text>
+      <Text>{contact.number}</Text>
+      <Delete type="button" onClick={handleDelete}>
+        Delete
+      </Delete>
     </Item>
   );
 };
+
 Contact.propTypes = {
-  name: PropTypes.string.isRequired,
-  // number: PropTypes.string.isRequired,
-  delId: PropTypes.string.isRequired,
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
 };

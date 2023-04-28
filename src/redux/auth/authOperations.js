@@ -3,11 +3,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
-const setToken = token => {
+const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-const unsetToken = () => {
+const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
@@ -16,10 +16,11 @@ export const register = createAsyncThunk(
   async (userdata, { rejectWithValue }) => {
     try {
       const response = await axios.post('/users/signup', userdata);
-      setToken(response.data.token);
+      setAuthHeader(response.data.token);
       return response.data;
     } catch (e) {
-      rejectWithValue(e.message);
+      console.log(e.message);
+      return rejectWithValue(e.message);
     }
   }
 );
@@ -29,37 +30,41 @@ export const logIn = createAsyncThunk(
   async (userdata, { rejectWithValue }) => {
     try {
       const response = await axios.post('/users/login', userdata);
-      setToken(response.data.token);
+      setAuthHeader(response.data.token);
       return response.data;
     } catch (e) {
-      rejectWithValue(e.message);
+      return rejectWithValue(e.message);
     }
   }
 );
 
-export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
+export const logOut = createAsyncThunk(
+  'auth/logOut',
+  async (_, { rejectWithValue }) => {
     try {
-        await axios.post('/users/logout');
-        unsetToken()
+      await axios.post('/users/logout');
+      clearAuthHeader();
     } catch (e) {
-        rejectWithValue(e.message)
+      return rejectWithValue(e.message);
     }
-});
+  }
+);
 
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
-    async (_, { getState, rejectWithValue }) => {
-        try {
-            const state = getState();
-            if (!state.auth.token) {
-                return rejectWithValue()
-            }
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const state = getState();
 
-            setToken(state.auth.token);
-            const response = await axios.get('/users/current');
-            return response.data;
-        } catch (e) {
-            rejectWithValue(e.message)
+      if (!state.auth.token) {
+        return rejectWithValue();
       }
+
+      setAuthHeader(state.auth.token);
+      const response = await axios.get('/users/current');
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
   }
 );

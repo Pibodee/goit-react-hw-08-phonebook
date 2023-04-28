@@ -1,7 +1,7 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './contatsOperations';
 
-const CONTACT_ACTIONS = [fetchContacts, addContact, deleteContact];
+const CONTACTS_ACTIONS = [fetchContacts, addContact, deleteContact];
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -10,7 +10,6 @@ const contactsSlice = createSlice({
     isLoading: false,
     error: null,
   },
-
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
@@ -21,25 +20,25 @@ const contactsSlice = createSlice({
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         const index = state.items.findIndex(
-          contact => contact.id === action.payload.id
+          element => element.id === action.payload
         );
         state.items.splice(index, 1);
       })
       .addMatcher(
-        isAnyOf(...CONTACT_ACTIONS.map(action => action.fulfilled)),
+        isAnyOf(...CONTACTS_ACTIONS.map(action => action.fulfilled)),
         state => {
           state.isLoading = false;
           state.error = null;
         }
       )
       .addMatcher(
-        isAnyOf(...CONTACT_ACTIONS.map(action => action.pending)),
+        isAnyOf(...CONTACTS_ACTIONS.map(action => action.pending)),
         state => {
           state.isLoading = true;
         }
       )
       .addMatcher(
-        isAnyOf(...CONTACT_ACTIONS.map(action => action.rejected)),
+        isAnyOf(...CONTACTS_ACTIONS.map(action => action.rejected)),
         (state, action) => {
           state.isLoading = false;
           state.error = action.payload;
@@ -48,4 +47,4 @@ const contactsSlice = createSlice({
   },
 });
 
-export const contactsReduser = contactsSlice.reducer;
+export const contactsReducer = contactsSlice.reducer;

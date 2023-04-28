@@ -1,32 +1,25 @@
-import { ContactList } from './ContactList/ContactList';
-import { ContactForm } from './Form/Form';
-import { Filter } from './Filter/Filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoading } from 'redux/contacts/selectors';
-import { Suspense, useEffect } from 'react';
-import { Loader } from './Loader/Loader';
 import { Route, Routes } from 'react-router-dom';
-import Homepage from 'pages/homepage/Homepage';
-import ContactsPage from 'pages/contactsPage/contactsPage';
-import MainNav from './MainNav/MainNav';
-import { selectRefreshing, selectisLoading } from 'redux/auth/authSelectors';
+import { useEffect, Suspense } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Layout } from './Layout';
+import { Homepage } from 'pages/homepage/Homepage';
+import { Registerpage } from 'pages/registerPage/RegisterPage';
+import { Loginpage } from 'pages/logInPage/logInPage';
+import { Contactspage } from 'pages/contactsPage/contactsPage';
 import { refreshUser } from 'redux/auth/authOperations';
-import Layout from './Layout';
 import PrivateRoute from './Routes/PrivateRoute';
 import RestrictedRoute from './Routes/RestrictedRoute';
-import LogInPage from 'pages/logInPage/logInPage';
-import RegistrationPage from 'pages/registerPage/RegisterPage';
+import { selectIsRefreshing } from 'redux/auth/authSelectors';
+import { Loader } from './Loader/Loader';
+import { selectIsLoading } from 'redux/contacts/selectors';
 
 export const App = () => {
-  const isRefreshing = useSelector(selectRefreshing);
-  const isUserLoading = useSelector(selectisLoading);
-  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
-
+  const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoading = useSelector(selectIsLoading);
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
-
   return (
     <>
       <Suspense fallback={<Loader />}>
@@ -36,15 +29,16 @@ export const App = () => {
               <Route index element={<Homepage />} />
               <Route
                 path="contacts"
-                element={<PrivateRoute component={<ContactsPage />} />}
+                element={<PrivateRoute component={<Contactspage />} />}
               />
               <Route
                 path="login"
-                element={<RestrictedRoute component={<LogInPage />} />}
+                element={<RestrictedRoute component={<Loginpage />} />}
               />
+
               <Route
                 path="register"
-                element={<RestrictedRoute component={<RegistrationPage />} />}
+                element={<RestrictedRoute component={<Registerpage />} />}
               />
               <Route path="*" element={<Homepage />} />
             </Route>

@@ -19,19 +19,18 @@ export const StyledForm = styled(Form)`
 `;
 
 export const StyledLabel = styled.label`
-  font-weight: 600;
-  font-size: 24px;
-  color: #feb340;
-`;
+font-weight: 600;
+font-size: 24px;
+`
+
 
 export const StyledField = styled(Field)`
-  display: block;
-  width: 400px;
-  height: 40px;
-  border-radius: 5px;
-`;
+display: block;
+width: 400px;
+height: 40px;
+border-radius: 5px;`
 
-export const FormBtn = styled.button`
+export const StyledFormBtn = styled.button`
   width: 150px;
   padding: 10px;
   font-size: 20px;

@@ -1,17 +1,15 @@
-const { Suspense } = require("react")
-const { default: MainNav } = require("./MainNav/MainNav")
-const { Loader } = require("./Loader/Loader")
-const { Outlet } = require("react-router-dom")
+import { Outlet } from 'react-router-dom';
+import { AppBar } from './AppBar/AppBar';
+import { Suspense } from 'react';
+import { Loader } from './Loader/Loader';
 
-const Layout = () => {
-    return (
-        <>
-            <MainNav />
-            <Suspense fallback={<Loader />}>
-                <Outlet/>
-            </Suspense>
-        </>
-    )
-}
-
-export default Layout
+export const Layout = () => {
+  return (
+    <>
+      <AppBar />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
+    </>
+  );
+};

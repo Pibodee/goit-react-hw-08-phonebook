@@ -1,22 +1,18 @@
-const { useSelector, useDispatch } = require("react-redux");
-const { logOut } = require("redux/auth/authOperations");
-const { selectUser } = require("redux/auth/authSelectors")
+import { useDispatch } from 'react-redux';
+import { useAuth } from 'hooks/useAuth';
+import { logOut } from 'redux/auth/authOperations';
+import { UserMenuBlock, UserMenuBtn } from './UserMenu.Styled';
 
-const UserMenu = () => {
-    const user = useSelector(selectUser);
-    const dispatch = useDispatch();
+export const UserMenu = () => {
+  const dispatch = useDispatch();
+  const { user } = useAuth();
 
-    const handleLogOut = () => {
-        dispatch(logOut)
-    }
-
-    return (
-        <div>
-            <p>Wellcome, {user.name}</p>
-            <p>email: {user.email}</p>
-            <button type="button" onClick={handleLogOut}>LogOut</button>
-        </div>
-    )
-}
-
-export default UserMenu
+  return (
+    <UserMenuBlock>
+      <p>Welcome, {user.name}</p>
+      <UserMenuBtn type="button" onClick={() => dispatch(logOut())}>
+        Logout
+      </UserMenuBtn>
+    </UserMenuBlock>
+  );
+};
