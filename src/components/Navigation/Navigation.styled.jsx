@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 
-
 export const StyledNavigation = styled.nav`
   margin-left: 15px;
   display: flex;
@@ -19,5 +18,3 @@ export const StyledLink = styled(NavLink)`
     background: #feb340;
   }
 `;
-
-

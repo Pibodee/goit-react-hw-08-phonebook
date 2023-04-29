@@ -6,7 +6,6 @@ import { ListStyled } from './Contactlist.styled';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/contacts/contatsOperations';
 
-
 export const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const filterValue = useSelector(selectFilter);

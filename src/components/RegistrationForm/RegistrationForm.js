@@ -1,8 +1,13 @@
-import { Formik, ErrorMessage, } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import { register } from 'redux/auth/authOperations';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { StyledField, StyledForm, StyledFormBtn, StyledLabel } from './RegistrationForm.styled';
+import {
+  StyledField,
+  StyledForm,
+  StyledFormBtn,
+  StyledLabel,
+} from './RegistrationForm.styled';
 
 const schema = yup.object().shape({
   name: yup

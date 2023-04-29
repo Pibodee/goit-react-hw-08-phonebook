@@ -1,11 +1,18 @@
-const { useSelector } = require("react-redux");
-const { Navigate } = require("react-router-dom");
-const { selectIsLoggedIn } = require("redux/auth/authSelectors")
+import PropTypes from 'prop-types';
+
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { selectIsLoggedIn } from 'redux/auth/authSelectors';
 
 const RestrictedRoute = ({ component }) => {
-    const isLogged = useSelector(selectIsLoggedIn);
+  const isLogged = useSelector(selectIsLoggedIn);
 
-    return isLogged?<Navigate to='/contacts' replace/> : component
-}
+  return isLogged ? <Navigate to="/contacts" replace /> : component;
+};
 
-export default RestrictedRoute
+export default RestrictedRoute;
+
+RestrictedRoute.propTypes = {
+  component: PropTypes.object.isRequired,
+};
+

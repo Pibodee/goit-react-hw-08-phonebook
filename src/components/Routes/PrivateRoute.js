@@ -1,11 +1,17 @@
-const { useSelector } = require("react-redux");
-const { Navigate } = require("react-router-dom");
-const { selectIsLoggedIn } = require("redux/auth/authSelectors")
+import PropTypes from 'prop-types';
 
-const PrivateRoute = ({component}) => {
-    const isLogged = useSelector(selectIsLoggedIn);
+const { useSelector } = require('react-redux');
+const { Navigate } = require('react-router-dom');
+const { selectIsLoggedIn } = require('redux/auth/authSelectors');
 
-    return isLogged? component : <Navigate to='/login' replace/>
-}
+const PrivateRoute = ({ component }) => {
+  const isLogged = useSelector(selectIsLoggedIn);
 
-export default PrivateRoute
+  return isLogged ? component : <Navigate to="/login" replace />;
+};
+
+export default PrivateRoute;
+
+PrivateRoute.propTypes = {
+  component: PropTypes.object.isRequired,
+};

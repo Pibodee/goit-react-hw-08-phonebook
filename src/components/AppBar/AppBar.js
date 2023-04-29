@@ -8,9 +8,9 @@ export const AppBar = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-      <NavBar>
-        <Navigation />
-        {isLoggedIn ? <UserMenu /> : <AuthNav />}
-      </NavBar>
+    <NavBar>
+      <Navigation />
+      {isLoggedIn ? <UserMenu /> : <AuthNav />}
+    </NavBar>
   );
 };

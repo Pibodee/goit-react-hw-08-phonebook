@@ -2,14 +2,11 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './contatsOperations';
 
 const CONTACTS_ACTIONS = [fetchContacts, addContact, deleteContact];
+const initialState = { items: [], isLoading: false, error: null };
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
+  initialState: initialState,
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {

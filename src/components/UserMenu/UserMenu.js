@@ -9,7 +9,7 @@ export const UserMenu = () => {
 
   return (
     <UserMenuBlock>
-      <p>Welcome, {user.name}</p>
+      <p>Greetings, {user.name}!</p>
       <UserMenuBtn type="button" onClick={() => dispatch(logOut())}>
         Logout
       </UserMenuBtn>

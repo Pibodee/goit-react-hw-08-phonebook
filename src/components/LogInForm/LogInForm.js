@@ -1,8 +1,13 @@
-import { Formik, ErrorMessage,} from 'formik';
-import {useDispatch } from 'react-redux';
+import { Formik, ErrorMessage } from 'formik';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { logIn } from 'redux/auth/authOperations';
-import { StyledField, StyledForm, StyledFormBtn, StyledLabel } from './LoginForm.styled';
+import {
+  StyledField,
+  StyledForm,
+  StyledFormBtn,
+  StyledLabel,
+} from './LoginForm.styled';
 
 const schema = yup.object().shape({
   email: yup
@@ -26,39 +31,30 @@ const initialValues = {
   password: '',
 };
 
-
 const LogInForm = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    return (
-      <Formik
-        initialValues={initialValues}
-        validationSchema={schema}
-        onSubmit={values => dispatch(logIn(values))}
-      >
-        <StyledForm autoComplete="off">
-          <StyledLabel>
-            Email
-            <StyledField
-              type="text"
-              name="email"
-              placeholder="Example@aaa.com"
-            />
-            <ErrorMessage name="email" />
-          </StyledLabel>
-          <StyledLabel>
-            Password
-            <StyledField
-              type="text"
-              name="password"
-              placeholder="Password"
-            />
-            <ErrorMessage name="password" />
-          </StyledLabel>
-          <StyledFormBtn type="submit">Log In</StyledFormBtn>
-        </StyledForm>
-      </Formik>
-    );
-}
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={schema}
+      onSubmit={values => dispatch(logIn(values))}
+    >
+      <StyledForm autoComplete="off">
+        <StyledLabel>
+          Email
+          <StyledField type="text" name="email" placeholder="Example@aaa.com" />
+          <ErrorMessage name="email" />
+        </StyledLabel>
+        <StyledLabel>
+          Password
+          <StyledField type="text" name="password" placeholder="Password" />
+          <ErrorMessage name="password" />
+        </StyledLabel>
+        <StyledFormBtn type="submit">Log In</StyledFormBtn>
+      </StyledForm>
+    </Formik>
+  );
+};
 
-export default LogInForm
+export default LogInForm;

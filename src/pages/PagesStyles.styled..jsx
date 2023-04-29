@@ -10,7 +10,8 @@ export const Container = styled.div`
   padding: 10px 0;
   background: linear-gradient(156.46deg, #5d7efc -0.65%, #9f4bfb 65.17%);
   width: 100vw;
-  height: 90vh;
+  min-height: 90vh;
+  height: 100%;
   gap: 40px;
 `;
 
@@ -29,6 +30,7 @@ export const Invitation = styled.h3`
 `;
 
 export const ListContainer = styled.div`
-display: flex;
-flex-grow: 1;
-width: 100%;`
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+`;

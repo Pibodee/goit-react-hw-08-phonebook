@@ -12,7 +12,11 @@ export const Filter = () => {
   return (
     <FilterLabel>
       Find contacts by Name
-      <StyledInput type="text" name="filter" onChange={e => onFilter(e)}></StyledInput>
+      <StyledInput
+        type="text"
+        name="filter"
+        onChange={e => onFilter(e)}
+      ></StyledInput>
     </FilterLabel>
   );
 };

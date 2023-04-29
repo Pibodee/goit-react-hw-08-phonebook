@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchContacts } from 'redux/contacts/contatsOperations';
-import {ContactForm } from 'components/Form/Form';
+import { ContactForm } from 'components/Form/Form';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Container, Hero, ListContainer } from 'pages/PagesStyles.styled.';

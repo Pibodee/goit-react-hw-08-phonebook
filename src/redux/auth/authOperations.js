@@ -3,11 +3,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
-const setAuthHeader = token => {
+const setToken = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-const clearAuthHeader = () => {
+const unsetToken = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
@@ -16,7 +16,7 @@ export const register = createAsyncThunk(
   async (userdata, { rejectWithValue }) => {
     try {
       const response = await axios.post('/users/signup', userdata);
-      setAuthHeader(response.data.token);
+      setToken(response.data.token);
       return response.data;
     } catch (e) {
       console.log(e.message);
@@ -30,7 +30,7 @@ export const logIn = createAsyncThunk(
   async (userdata, { rejectWithValue }) => {
     try {
       const response = await axios.post('/users/login', userdata);
-      setAuthHeader(response.data.token);
+      setToken(response.data.token);
       return response.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -43,7 +43,7 @@ export const logOut = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await axios.post('/users/logout');
-      clearAuthHeader();
+      unsetToken();
     } catch (e) {
       return rejectWithValue(e.message);
     }
@@ -60,7 +60,7 @@ export const refreshUser = createAsyncThunk(
         return rejectWithValue();
       }
 
-      setAuthHeader(state.auth.token);
+      setToken(state.auth.token);
       const response = await axios.get('/users/current');
       return response.data;
     } catch (e) {

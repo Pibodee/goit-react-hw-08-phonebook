@@ -3,7 +3,7 @@ import { Box } from './Loader.styled';
 export const Loader = () => {
   return (
     <Box className="wrapper">
-      <ThreeDots color="#3f51b5"  />
+      <ThreeDots color="#3f51b5" />
     </Box>
   );
 };
