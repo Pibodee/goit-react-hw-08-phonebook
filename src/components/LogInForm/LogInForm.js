@@ -19,10 +19,6 @@ const schema = yup.object().shape({
     .required('Required'),
   password: yup
     .string()
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/, {
-      message: 'Enter valid passwoed',
-      excludeEmptyString: true,
-    })
     .required('Required'),
 });
 
